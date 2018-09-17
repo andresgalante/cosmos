@@ -197,7 +197,8 @@ const Button = ({ children, ...props }) => {
 }
 
 Button.Element = styled.button`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   min-height: ${props => getAttributes(props).lineHeight};
   line-height: ${props => getAttributes(props).lineHeight};
   min-width: ${props => getAttributes(props).minWidth};
@@ -224,14 +225,12 @@ Button.Element = styled.button`
   pointer-events: ${props => (props.disabled || props.loading || props.success ? 'none' : null)};
   transition: border-color ${misc.animationDuration}, background ${misc.animationDuration};
 
-  ${Icon.Element}, ${StyledSpinner} {
-    position: relative;
-    top: -1px;
-    margin-right: ${props => (props.text ? spacing.xsmall : 0)};
-  }
-
   ${Icon.Element} {
     color: ${props => getAttributes(props).text};
+  }
+
+  > *:not(:last-child):not(:only-child) {
+    margin-right: ${props => (props.text ? spacing.xsmall : 0)};
   }
 
   &:hover {
