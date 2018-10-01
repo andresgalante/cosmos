@@ -200,17 +200,20 @@ const Button = ({ children, ...props }) => {
 }
 
 Button.Element = styled.button`
-  display: inline-block;
-  vertical-align: middle;
+* {
+  outline: 1px solid orange;
+}
+  display: inline-flex;
+  align-items: center;
 
   min-width: ${props => getAttributes(props).minWidth};
   min-height: ${props => getAttributes(props).lineHeight};
-  line-height: ${props => getAttributes(props).lineHeight};
+  line-height: 1.2; /* change: this should reference a token like line-height-sm or whatever */
 
   text-transform: uppercase;
   white-space: nowrap;
   letter-spacing: 1px;
-  font-size: 13px;
+  font-size: 13px; /* question: should this reference a token like font-size-sm */
   font-weight: ${fonts.weight.medium};
 
   background: ${props => getAttributes(props).background};
@@ -254,9 +257,9 @@ Button.Element = styled.button`
 `
 
 Button.Text = styled.span`
-  display: inline-block;
-  vertical-align: middle;
-`
+  outline: 1px solid red;
+  /* question: maybe there is no need for a span here */
+ `
 
 Button.LinkElement = Button.Element.withComponent('a').extend`
   display: table;
