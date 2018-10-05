@@ -203,32 +203,32 @@ Button.Element = styled.button`
   display: inline-flex;
   align-items: center;
 
-  // min with should not change, this value should be a safety net for square icon btns.
+  /* min with should not change, this value should be a safety net for square icon btns. */
   min-width: ${props => getAttributes(props).minWidth}; 
 
 
-  // this should not be related to the line height at all, the value shold be replaced by a component token who's value is a global token
+  /* this should not be related to the line height at all, the value shold be replaced by a component token who's value is a global token */
   min-height: ${props => getAttributes(props).lineHeight}; 
   
-  // this should reference a token
+  /* this should reference a token */
   line-height: 1.2;
 
   text-transform: uppercase;
   white-space: nowrap;
   
-  // this should reference a token
+  /* this should reference a token */
   letter-spacing: 1px;
 
-  // this should reference a token
+  /* this should reference a token */
   font-size: 13px;
 
   font-weight: ${fonts.weight.medium};
 
-  // Avoid shorthands, background vs background-color
-  // Token should be named backgroundColor
+  /* Avoid shorthands, background vs background-color */
+  /* Token should be named backgroundColor */
   background-color: ${props => getAttributes(props).background};
   
-  // this should reference a token
+  /* this should reference a token */
   border: 1px solid ${props => getAttributes(props).border};
   
   border-radius: ${misc.radius};
@@ -267,16 +267,16 @@ Button.Element = styled.button`
   &:active {
     background: ${props => getAttributes(props).activeBackground};
     border-color: ${props => getAttributes(props).activeBorder};
-    // outline: none;
+    /* outline: none; */
   }
 `
 
 Button.Text = styled.span`
-  // Why do we need a span on the btn, is this due to react wizardy?
+  /* Why do we need a span on the btn, is this due to react wizardy? */
  `
 
 Button.LinkElement = Button.Element.withComponent('a').extend`
-  // I don't think we need any of this. Is there a way to preview an achor with the class of btn on the stories?
+  /* I don't think we need any of this. Is there a way to preview an achor with the class of btn on the stories?*/
   display: table;
   text-decoration: none;
 

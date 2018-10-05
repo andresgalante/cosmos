@@ -13,27 +13,39 @@ import {
 } from '../../_helpers/pagination'
 
 const StyledPagination = styled.div`
+  /* Do we have to support IE11, can we make this a grid container instead? */
   display: flex;
+
+  /* This is VERY opiniated, will a pagination always be centered? */
   justify-content: center;
 `
 
 const StyledPaginationItem = styled(Button)`
   margin-right: ${spacing.small};
-  position: relative;
+  
+  /* If a buttona is a relative container, it's a red flag
+   position: relative; */
 
   &:last-child {
     margin-right: 0;
   }
 
-  min-width: ${props => (props.left || props.right ? '95px' : spacing.small)};
+  /* min-width: ${props => (props.left || props.right ? '95px' : spacing.small)}; 
 
   ${props => props.left && `padding-left: ${spacing.xlarge};`} 
   ${props => props.right && `padding-right: ${spacing.xlarge};`} 
   ${props => props.iconOnly && `padding-left: 0;`}
+  */
 
+  /* harded color should be a token */
   ${props => props.selected && `background-color: rgba(0,0,0,0.2);`}
 
   ${Icon.Element} {
+    /* can't we just use the icon btn from btns? 
+      display: inline-block;
+    */
+
+    /*
     position: absolute;
     margin: 0;
     padding-top: 10px;
@@ -43,33 +55,43 @@ const StyledPaginationItem = styled(Button)`
     svg {
       width: 15px;
       height: 15px;
-    }
+    } */
 
     ${props =>
-      props.left &&
-      `
-      left: ${spacing.xxsmall};
+    props.left &&
+    `
+    /* 
       padding-right: ${spacing.xxsmall};
-      border-right: 1px solid ${colors.base.grayLight}
+      border-right: 1px solid ${colors.base.grayLight};
+      left: ${spacing.xxsmall};
+      */
     `};
     ${props =>
-      props.right &&
-      `
+    props.right &&
+    `
+    /*
+    padding-left: ${spacing.xxsmall};
+    border-left: 1px solid ${colors.base.grayLight};
+  
+      
       right: calc(${spacing.xxsmall});
-      padding-left: ${spacing.xxsmall};
-      border-left: 1px solid ${colors.base.grayLight}
+      */
     `};
   }
 `
 
 const IconButton = styled(Button)`
+  /* why do we make to make this different? can't this one use the same margin as the rest of them? */
   margin-right: ${spacing.small};
+  
+  /*  
   min-width: ${spacing.small};
   padding-left: ${spacing.xsmall};
   padding-right: 0;
-
+  */
+  
   ${Icon.Element} {
-    padding-top: 3px;
+    /* padding-top: 3px; */
   }
 `
 
@@ -84,17 +106,17 @@ const renderPaginationItem = ({
   right = false,
   iconOnly = false
 }) => (
-  <StyledPaginationItem
-    left={left}
-    right={right}
-    iconOnly={iconOnly}
-    appearance={appearance}
-    size="compressed"
-    onClick={() => changePageIfAppropiate(toPage, items, perPage, onPageChanged)}
-  >
-    {content}
-  </StyledPaginationItem>
-)
+    <StyledPaginationItem
+      left={left}
+      right={right}
+      iconOnly={iconOnly}
+      appearance={appearance}
+      size="compressed"
+      onClick={() => changePageIfAppropiate(toPage, items, perPage, onPageChanged)}
+    >
+      {content}
+    </StyledPaginationItem>
+  )
 
 const handlePaginationButtonClick = (page, items, perPage, onPageChanged) => {
   if (page.clickable === false) return
