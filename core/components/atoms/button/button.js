@@ -107,22 +107,22 @@ const states = {
 
 const sizes = {
   large: {
-    lineHeight: subtract(misc.button.large.height, '2px'),
+    lineHeight: misc.button.large.height,
     minWidth: '96px',
     padding: spacing.medium
   },
   default: {
-    lineHeight: subtract(misc.button.default.height, '2px'),
+    lineHeight: misc.button.default.height,
     minWidth: '96px',
     padding: spacing.small
   },
   compressed: {
-    lineHeight: subtract(misc.button.compressed.height, '2px'),
+    lineHeight: misc.button.compressed.height,
     minWidth: 'auto',
     padding: spacing.small
   },
   small: {
-    lineHeight: subtract(misc.button.small.height, '2px'),
+    lineHeight: misc.button.small.height,
     minWidth: 'auto',
     padding: spacing.xsmall
   }
@@ -200,24 +200,37 @@ const Button = ({ children, ...props }) => {
 }
 
 Button.Element = styled.button`
-* {
-  outline: 1px solid orange;
-}
   display: inline-flex;
   align-items: center;
 
-  min-width: ${props => getAttributes(props).minWidth};
-  min-height: ${props => getAttributes(props).lineHeight};
-  line-height: 1.2; /* change: this should reference a token like line-height-sm or whatever */
+  // min with should not change, this value should be a safety net for square icon btns.
+  min-width: ${props => getAttributes(props).minWidth}; 
+
+
+  // this should not be related to the line height at all, the value shold be replaced by a component token who's value is a global token
+  min-height: ${props => getAttributes(props).lineHeight}; 
+  
+  // this should reference a token
+  line-height: 1.2;
 
   text-transform: uppercase;
   white-space: nowrap;
+  
+  // this should reference a token
   letter-spacing: 1px;
-  font-size: 13px; /* question: should this reference a token like font-size-sm */
+
+  // this should reference a token
+  font-size: 13px;
+
   font-weight: ${fonts.weight.medium};
 
-  background: ${props => getAttributes(props).background};
+  // Avoid shorthands, background vs background-color
+  // Token should be named backgroundColor
+  background-color: ${props => getAttributes(props).background};
+  
+  // this should reference a token
   border: 1px solid ${props => getAttributes(props).border};
+  
   border-radius: ${misc.radius};
 
   color: ${props => getAttributes(props).text};
@@ -227,7 +240,7 @@ Button.Element = styled.button`
   opacity: ${props => (props.disabled ? 0.5 : 1)};
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   pointer-events: ${props => (props.disabled || props.loading || props.success ? 'none' : null)};
-  transition: border-color ${misc.animationDuration}, background ${misc.animationDuration};
+  transition: border-color ${misc.animationDuration}, background-color ${misc.animationDuration};
 
   > *:not(:last-child):not(:only-child) {
     margin-right: ${props => (props.text ? spacing.xsmall : 0)};
@@ -244,24 +257,26 @@ Button.Element = styled.button`
   }
 
   &:focus {
+    /* Having the same treatment for hover than for focus is bad ay11. I am bringing back the focus ring for accecibility.
     background: ${props => getAttributes(props).focusBackground};
     border-color: ${props => getAttributes(props).focusBorder};
     outline: none;
+   */  
   }
 
   &:active {
     background: ${props => getAttributes(props).activeBackground};
     border-color: ${props => getAttributes(props).activeBorder};
-    outline: none;
+    // outline: none;
   }
 `
 
 Button.Text = styled.span`
-  outline: 1px solid red;
-  /* question: maybe there is no need for a span here */
+  // Why do we need a span on the btn, is this due to react wizardy?
  `
 
 Button.LinkElement = Button.Element.withComponent('a').extend`
+  // I don't think we need any of this. Is there a way to preview an achor with the class of btn on the stories?
   display: table;
   text-decoration: none;
 

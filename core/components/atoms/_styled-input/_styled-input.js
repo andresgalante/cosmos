@@ -33,18 +33,15 @@ const getAttributes = props => {
 
 const StyledInput = styled.input`
   width: 100%;
-  box-sizing: border-box;
-
-  background: ${props => getAttributes(props).background};
-  border: 1px solid;
-  border-color: ${props => getAttributes(props).border};
+  background-color: ${props => getAttributes(props).background};
+  border: 1px solid${props => getAttributes(props).border};
   border-radius: ${misc.radius};
 
   font-family: ${props => (props.code ? fonts.family.code : 'inherit')};
   font-size: ${props => (props.code ? '13px' : 'inherit')};
   color: ${colors.text.inputs};
 
-  padding: ${misc.inputs.padding} ${spacing.small};
+  padding: 0 ${spacing.small};
 
   cursor: ${props => (props.readOnly ? 'not-allowed' : 'auto')};
   transition: border-color ${misc.animationDuration}, box-shadow ${misc.animationDuration};
